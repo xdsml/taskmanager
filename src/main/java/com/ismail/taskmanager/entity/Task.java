@@ -1,6 +1,7 @@
 package com.ismail.taskmanager.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tasks")
@@ -9,8 +10,10 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String title;
     private String description;
+    @NotBlank
     private String status;
     
     public Task() {
