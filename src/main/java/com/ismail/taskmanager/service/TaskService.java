@@ -29,11 +29,8 @@ public class TaskService {
     }
 
     public Task updateTask(Long id, Task task) {
-        Task existingTask = taskRepository.findById(id).orElse(null);
-
-        if (existingTask == null) {
-            return null;
-        }
+        Task existingTask = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException("Task not found"));
 
         existingTask.setTitle(task.getTitle());
         existingTask.setDescription(task.getDescription());

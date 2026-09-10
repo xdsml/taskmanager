@@ -1,5 +1,7 @@
 package com.ismail.taskmanager.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -13,9 +15,10 @@ public class Task {
     @NotBlank
     private String title;
     private String description;
-    @NotBlank
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
     
     public Task(String title,TaskStatus status,String description) {
     	this.title = title;
@@ -49,6 +52,14 @@ public class Task {
 	
     public void setStatus(TaskStatus status) {
     	this.status = status;
+    }
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
     }
 
 }
