@@ -4,7 +4,7 @@ import com.ismail.taskmanager.entity.Task;
 import com.ismail.taskmanager.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
-
+import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @RestController
@@ -23,8 +23,8 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public Task getTaskById(@PathVariable Long id) {
-        return taskService.getTaskById(id);
+    public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
+        return ResponseEntity.ok(taskService.getTaskById(id));
     }
 
     @PostMapping

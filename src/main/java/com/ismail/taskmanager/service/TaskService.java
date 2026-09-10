@@ -3,6 +3,7 @@ package com.ismail.taskmanager.service;
 import com.ismail.taskmanager.entity.Task;
 import com.ismail.taskmanager.repository.TaskRepository;
 import org.springframework.stereotype.Service;
+import com.ismail.taskmanager.exception.TaskNotFoundException;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class TaskService {
     }
 
     public Task getTaskById(Long id) {
-        return taskRepository.findById(id).orElse(null);
+        return taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
     }
 
     public Task createTask(Task task) {
