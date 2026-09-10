@@ -14,10 +14,13 @@ public class Task {
     private String title;
     private String description;
     @NotBlank
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
     
-    public Task() {
-    	
+    public Task(String title,TaskStatus status,String description) {
+    	this.title = title;
+    	this.description = description;
+    	this.status = status;
     }
     
     public Long getId() {
@@ -32,7 +35,7 @@ public class Task {
     	return description;
     }
     
-    public String getStatus() {
+    public TaskStatus getStatus() {
     	return status;
     }
     
@@ -44,7 +47,7 @@ public class Task {
     	this.description = description;	 
     }
 	
-    public void setStatus(String status) {
+    public void setStatus(TaskStatus status) {
     	this.status = status;
     }
 
