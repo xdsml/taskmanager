@@ -1,56 +1,134 @@
-<h1>Task Manager</h1>
+<div class="app-container">
 
-<h2>
-  {{ editingTaskId === null ? 'Créer une tâche' : 'Modifier la tâche' }}
-</h2>
+  <header class="app-header">
+    <div>
+      <h1>Task Manager</h1>
+      <p class="subtitle">Organisez vos tâches simplement et efficacement.</p>
+    </div>
+  </header>
 
-<form>
-  <input
-    type="text"
-    name="title"
-    [(ngModel)]="newTask.title"
-    placeholder="Titre de la tâche"
-  />
+  <section class="task-form-section">
 
-  <textarea
-    name="description"
-    [(ngModel)]="newTask.description"
-    placeholder="Description"
-  ></textarea>
+    <h2>
+      {{ editingTaskId === null ? 'Créer une tâche' : 'Modifier la tâche' }}
+    </h2>
 
-  <select
-    name="status"
-    [(ngModel)]="newTask.status"
-  >
-    <option value="TODO">TODO</option>
-    <option value="IN_PROGRESS">IN PROGRESS</option>
-    <option value="DONE">DONE</option>
-  </select>
+    <form class="task-form">
 
-  <button
-  type="button"
-  (click)="editingTaskId === null ? createTask() : updateTask()"
->
-  {{ editingTaskId === null ? 'Ajouter la tâche' : 'Enregistrer les modifications' }}
-</button>
-</form>
+      <div class="form-group">
+        <label for="title">Titre</label>
+        <input
+          id="title"
+          type="text"
+          name="title"
+          [(ngModel)]="newTask.title"
+          placeholder="Ex. Apprendre Spring Boot"
+        />
+      </div>
 
-<h2>Liste des tâches</h2>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="newTask.description"
+          placeholder="Décrivez votre tâche..."
+        ></textarea>
+      </div>
 
-@for (task of tasks; track task.id) {
-  <div>
-    <h3>{{ task.title }}</h3>
-    <p>{{ task.description }}</p>
-    <p>Statut : {{ task.status }}</p>
-    <p>Créée le : {{ task.createdAt }}</p>
-    <button type="button" (click)="editTask(task)">
-      Modifier
-    </button>
+      <div class="form-group">
+        <label for="status">Statut</label>
+        <select
+          id="status"
+          name="status"
+          [(ngModel)]="newTask.status"
+        >
+          <option value="TODO">À faire</option>
+          <option value="IN_PROGRESS">En cours</option>
+          <option value="DONE">Terminée</option>
+        </select>
+      </div>
 
-    <button type="button" (click)="deleteTask(task.id)">
-      Supprimer
-    </button>
-    
-    <hr>
-  </div>
-}
+      <button
+        type="button"
+        class="primary-button"
+        (click)="editingTaskId === null ? createTask() : updateTask()"
+      >
+        {{ editingTaskId === null ? 'Ajouter la tâche' : 'Enregistrer les modifications' }}
+      </button>
+
+    </form>
+
+  </section>
+
+  <section class="tasks-section">
+
+    <div class="section-header">
+      <div>
+        <h2>Liste des tâches</h2>
+        <p class="task-count">
+          {{ tasks.length }} tâche{{ tasks.length > 1 ? 's' : '' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="task-list">
+
+      @for (task of tasks; track task.id) {
+
+        <article class="task">
+
+          <div class="task-header">
+            <h3>{{ task.title }}</h3>
+
+            <span
+              class="status"
+              [class.status-progress]="task.status === 'IN_PROGRESS'"
+              [class.status-done]="task.status === 'DONE'"
+            >
+              {{ task.status === 'TODO'
+                ? 'À faire'
+                : task.status === 'IN_PROGRESS'
+                  ? 'En cours'
+                  : 'Terminée'
+              }}
+            </span>
+          </div>
+
+          <p class="task-description">
+            {{ task.description }}
+          </p>
+
+          <p class="task-date">
+            Créée le : {{ task.createdAt }}
+          </p>
+
+          <div class="task-actions">
+
+            <button
+              type="button"
+              class="edit-button"
+              (click)="editTask(task)"
+            >
+              Modifier
+            </button>
+
+            <button
+              type="button"
+              class="delete-button"
+              (click)="deleteTask(task.id)"
+            >
+              Supprimer
+            </button>
+
+          </div>
+
+        </article>
+
+      }
+
+    </div>
+
+  </section>
+
+</div>
