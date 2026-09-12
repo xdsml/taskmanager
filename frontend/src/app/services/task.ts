@@ -10,7 +10,7 @@ export class TaskService {
 
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:8080/api/tasks';
+  private apiUrl = 'http://localhost:8081/api/tasks';
 
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(this.apiUrl);
