@@ -1,6 +1,7 @@
 package com.ismail.taskmanager.controller;
 
 import com.ismail.taskmanager.entity.Task;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import com.ismail.taskmanager.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/tasks")
 public class TaskController {
 

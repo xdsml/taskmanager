@@ -1,0 +1,56 @@
+<h1>Task Manager</h1>
+
+<h2>
+  {{ editingTaskId === null ? 'Créer une tâche' : 'Modifier la tâche' }}
+</h2>
+
+<form>
+  <input
+    type="text"
+    name="title"
+    [(ngModel)]="newTask.title"
+    placeholder="Titre de la tâche"
+  />
+
+  <textarea
+    name="description"
+    [(ngModel)]="newTask.description"
+    placeholder="Description"
+  ></textarea>
+
+  <select
+    name="status"
+    [(ngModel)]="newTask.status"
+  >
+    <option value="TODO">TODO</option>
+    <option value="IN_PROGRESS">IN PROGRESS</option>
+    <option value="DONE">DONE</option>
+  </select>
+
+  <button
+  type="button"
+  (click)="editingTaskId === null ? createTask() : updateTask()"
+>
+  {{ editingTaskId === null ? 'Ajouter la tâche' : 'Enregistrer les modifications' }}
+</button>
+</form>
+
+<h2>Liste des tâches</h2>
+
+@for (task of tasks; track task.id) {
+  <div>
+    <h3>{{ task.title }}</h3>
+    <p>{{ task.description }}</p>
+    <p>Statut : {{ task.status }}</p>
+    <p>Créée le : {{ task.createdAt }}</p>
+    <button type="button" (click)="editTask(task)">
+      Modifier
+    </button>
+
+    <button type="button" (click)="deleteTask(task.id)">
+      Supprimer
+    </button>
+    
+    <hr>
+  </div>
+}

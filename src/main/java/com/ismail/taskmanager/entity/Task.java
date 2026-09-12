@@ -20,6 +20,9 @@ public class Task {
     @Column(updatable = false)
     private LocalDateTime createdAt;
     
+    public Task() {
+    }
+
     public Task(String title,TaskStatus status,String description) {
     	this.title = title;
     	this.description = description;
